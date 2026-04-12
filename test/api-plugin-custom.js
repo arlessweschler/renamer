@@ -1,18 +1,15 @@
 import Renamer from 'renamer'
-import assert from 'assert'
 import { createFixture } from './lib/util.js'
-import rimraf from 'rimraf'
-import fs from 'fs'
-import path from 'path'
-import TestRunner from 'test-runner'
-const a = assert.strict
+import fs from 'node:fs'
+import path from 'node:path'
+import { strict as a } from 'assert'
 
-const tom = new TestRunner.Tom()
+const [test, only, skip] = [new Map(), new Map(), new Map()]
 
 const testRoot = `tmp/${path.basename(import.meta.url)}`
-rimraf.sync(testRoot)
+fs.rmSync(testRoot, { recursive: true, force: true })
 
-tom.test('simple', async function () {
+test.set('simple', async function () {
   const testFolder = path.join(testRoot, String(this.index))
   createFixture(`${testFolder}/one`)
   createFixture(`${testFolder}/two`)
@@ -44,7 +41,7 @@ tom.test('simple', async function () {
   a.equal(fs.existsSync(`${testFolder}/test2`), true)
 })
 
-tom.test('chain of two plugins', async function () {
+test.set('chain of two plugins', async function () {
   const testFolder = path.join(testRoot, String(this.index))
   createFixture(`${testFolder}/one`)
   let assertionCount = 0
@@ -74,7 +71,7 @@ tom.test('chain of two plugins', async function () {
   a.equal(fs.existsSync(`${testFolder}/one12`), true)
 })
 
-tom.test('invalid plugin, no .replace() function', async function () {
+test.set('invalid plugin, no .replace() function', async function () {
   const fixturePath = createFixture(`${testRoot}/${this.index}/one`)
   class InvalidPlugin {}
   const renamer = new Renamer()
@@ -88,7 +85,7 @@ tom.test('invalid plugin, no .replace() function', async function () {
   )
 })
 
-tom.test('invalid plugin, function doesn\'t return class', async function () {
+test.set('invalid plugin, function doesn\'t return class', async function () {
   const fixturePath = createFixture(`${testRoot}/${this.index}/one`)
   const InvalidPlugin = 0
   const renamer = new Renamer()
@@ -102,4 +99,4 @@ tom.test('invalid plugin, function doesn\'t return class', async function () {
   )
 })
 
-export default tom
+export { test, only, skip }

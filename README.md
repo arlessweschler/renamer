@@ -2,9 +2,7 @@
 [![npm module downloads](https://badgen.net/npm/dt/renamer)](https://www.npmjs.org/package/renamer)
 [![Gihub repo dependents](https://badgen.net/github/dependents-repo/75lb/renamer)](https://github.com/75lb/renamer/network/dependents?dependent_type=REPOSITORY)
 [![Gihub package dependents](https://badgen.net/github/dependents-pkg/75lb/renamer)](https://github.com/75lb/renamer/network/dependents?dependent_type=PACKAGE)
-[![Build Status](https://travis-ci.org/75lb/renamer.svg?branch=master)](https://travis-ci.org/75lb/renamer)
-[![Coverage Status](https://coveralls.io/repos/github/75lb/renamer/badge.svg)](https://coveralls.io/github/75lb/renamer)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
+[![Node.js CI](https://github.com/75lb/renamer/actions/workflows/node.js.yml/badge.svg)](https://github.com/75lb/renamer/actions/workflows/node.js.yml)
 
 ***Upgraders, please read the [release notes](https://github.com/75lb/renamer/releases). Please share feedback and improvement ideas [here](https://github.com/75lb/renamer/discussions).***
 
@@ -74,7 +72,7 @@ $ renamer --find "/one/i" --replace "two" ONE.jpg
 For more complex renames, or if you just prefer using code, you can write a [replace function](https://github.com/75lb/renamer/wiki/How-to-write-a-replace-chain-plugin). Create a module exporting a class which defines a `replace` method. This trivial example appends the text `[DONE]` to each file name.
 
 ```js
-import path from 'path'
+import path from 'node:path'
 
 class Suffix {
   replace (filePath) {
@@ -134,6 +132,6 @@ $ npm install --save-dev renamer
 
 * * *
 
-&copy; 2012-21 Lloyd Brookes \<75pound@gmail.com\>.
+&copy; 2012-26 Lloyd Brookes \<opensource@75lb.com\>.
 
 Tested by [test-runner](https://github.com/test-runner-js/test-runner).
